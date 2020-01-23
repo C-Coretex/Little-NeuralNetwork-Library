@@ -1,0 +1,11 @@
+C:\Users\valer\OneDrive\Desktop\Programming\Artificial Intelligence\NeuralNetwork\NeuralNetwork\bin\Debug\netcoreapp3.1\NeuralNetwork.exe
+C:\Users\valer\OneDrive\Desktop\Programming\Artificial Intelligence\NeuralNetwork\NeuralNetwork\bin\Debug\netcoreapp3.1\NeuralNetwork.deps.json
+C:\Users\valer\OneDrive\Desktop\Programming\Artificial Intelligence\NeuralNetwork\NeuralNetwork\bin\Debug\netcoreapp3.1\NeuralNetwork.runtimeconfig.json
+C:\Users\valer\OneDrive\Desktop\Programming\Artificial Intelligence\NeuralNetwork\NeuralNetwork\bin\Debug\netcoreapp3.1\NeuralNetwork.runtimeconfig.dev.json
+C:\Users\valer\OneDrive\Desktop\Programming\Artificial Intelligence\NeuralNetwork\NeuralNetwork\bin\Debug\netcoreapp3.1\NeuralNetwork.dll
+C:\Users\valer\OneDrive\Desktop\Programming\Artificial Intelligence\NeuralNetwork\NeuralNetwork\bin\Debug\netcoreapp3.1\NeuralNetwork.pdb
+C:\Users\valer\OneDrive\Desktop\Programming\Artificial Intelligence\NeuralNetwork\NeuralNetwork\obj\Debug\netcoreapp3.1\NeuralNetwork.csprojAssemblyReference.cache
+C:\Users\valer\OneDrive\Desktop\Programming\Artificial Intelligence\NeuralNetwork\NeuralNetwork\obj\Debug\netcoreapp3.1\NeuralNetwork.AssemblyInfoInputs.cache
+C:\Users\valer\OneDrive\Desktop\Programming\Artificial Intelligence\NeuralNetwork\NeuralNetwork\obj\Debug\netcoreapp3.1\NeuralNetwork.AssemblyInfo.cs
+C:\Users\valer\OneDrive\Desktop\Programming\Artificial Intelligence\NeuralNetwork\NeuralNetwork\obj\Debug\netcoreapp3.1\NeuralNetwork.dll
+C:\Users\valer\OneDrive\Desktop\Programming\Artificial Intelligence\NeuralNetwork\NeuralNetwork\obj\Debug\netcoreapp3.1\NeuralNetwork.pdb
