@@ -4,8 +4,8 @@ namespace NeuralNetwork
 {
     class NeuralNetwork
     {
-        public double Moment;
-        public double LearningRate;
+        public double Moment = 1;
+        public double LearningRate = 1;
         public struct Neuron
         {
             public double value;
@@ -16,17 +16,18 @@ namespace NeuralNetwork
         public Neuron[][] network;
 
         #region Network Initialization
-        public NeuralNetwork(double moment, double learningRate)
+        public NeuralNetwork(string NeuronsAndLayers)
         {
-            Moment = moment;
-            LearningRate = learningRate;
+            string[] neuronsSTR = NeuronsAndLayers.Split(' ');
+            int[] neurons = new int[neuronsSTR.Length];
+            for (int i = 0; i < neuronsSTR.Length; ++i)
+                neurons[i] = Convert.ToInt32(neuronsSTR[i]);
 
-            network = new Neuron[3][];
-            previousWeights = new double[3][];
+            network = new Neuron[neurons.Length][];
+            previousWeights = new double[neurons.Length][];
 
-            network[0] = new Neuron[2];
-            network[1] = new Neuron[3];
-            network[2] = new Neuron[1];
+            for (int i = 0; i < neurons.Length; ++i)
+                network[i] = new Neuron[neurons[i]];
 
             for (int i = 0; i < network.Length - 1; ++i)
             {
@@ -56,15 +57,12 @@ namespace NeuralNetwork
         #region NeuralNetwork Run
         private static double Sigmoid(double num)
         {
-            num = 1.0 / (1 + Math.Pow(Math.E, -num));
-
-            return num;
+            return (1.0 / (1 + Math.Pow(Math.E, -num)));
         }
-
-        public double RunNetwork(int I1, int I2)
+        public Neuron[] RunNetwork(double[] training)
         {
-            network[0][0].value = I1;
-            network[0][1].value = I2;
+            for(int i = 0; i < training.Length; ++i)
+                network[0][i].value = training[i];
 
             for (int i = 1; i < network.Length; ++i)
             {
@@ -74,48 +72,41 @@ namespace NeuralNetwork
                     for (int k = 0; k < network[i - 1].Length; ++k)
                         output += network[i - 1][k].value * network[i - 1][k].w[j];
 
-                    network[i][j].value = Sigmoid(Math.Round(output, 5));
+                    network[i][j].value = Sigmoid(output);
                 }
             }
 
-            return network[network.GetLength(0) - 1][0].value;
+            return network[network.GetLength(0) - 1];
         }
         #endregion
 
         #region NeuralNetwork Teach
         private static double SigmoidError(double output)
         {
-            output = (1 - output) * output;
-            return output;
+            return ((1 - output) * output);
         }
         private static double DeltaOut(double outIdeal, double outActual)
         {
-            outActual = (outIdeal - outActual) * SigmoidError(outActual);
-            return outActual;
+            return ((outIdeal - outActual) * SigmoidError(outActual));
         }
         private static double DeltaHidden(double[] weights, double output, Neuron[] delta)
         {
             double actualSum = 0;
 
             for (int i = 0; i < weights.Length; ++i)
-            {
                 actualSum += weights[i] * delta[i].value;
-            }
 
-            output = SigmoidError(output) * actualSum;
-            return output;
+            return (SigmoidError(output) * actualSum);
         }
         private static double GRAD(double output, double delta)
         {
-            output = output * delta;
-            return output;
+            return (output * delta);
         }
         private double deltaW(double Grad, double prWeight)
         {
-            prWeight = LearningRate * Grad + Moment * prWeight;
-            return prWeight;
+            return (LearningRate * Grad + Moment * prWeight);
         }
-        public void TeachNetwork(double ideal, double output)
+        public void TeachNetwork(double[] ideal, Neuron[] output)
         {
             Neuron[][] deltaNetwork = new Neuron[network.Length][];
             for (int i = 0; i < network.Length; ++i)
@@ -125,7 +116,8 @@ namespace NeuralNetwork
                     deltaNetwork[i][j] = network[i][j];
             }
 
-            deltaNetwork[deltaNetwork.Length - 1][deltaNetwork[deltaNetwork.Length - 1].Length - 1].value = DeltaOut(ideal, output);
+            for(int i = 0; i < ideal.Length; ++i)
+                deltaNetwork[deltaNetwork.Length - 1][i].value = DeltaOut(ideal[i], output[i].value);
 
             for (int i = deltaNetwork.Length - 2; i >= 1; --i)
                 for (int j = 0; j < network[i].Length; ++j)
