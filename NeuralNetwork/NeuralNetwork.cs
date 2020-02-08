@@ -68,6 +68,8 @@ namespace NeuralNetwork
                     NeuralNetwork n = (NeuralNetwork)formatter.Deserialize(fs);
                     network = n.network;
                     previousWeights = n.previousWeights;
+                    Moment = n.Moment;
+                    LearningRate = n.LearningRate;
                 }
             }
             else
