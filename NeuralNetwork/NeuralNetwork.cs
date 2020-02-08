@@ -1,11 +1,15 @@
 ﻿using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace NeuralNetwork
 {
+    [Serializable]
     class NeuralNetwork
     {
         public double Moment = 0;
         public double LearningRate = 1;
+        [Serializable]
         public struct Neuron
         {
             public double value; // Value of the neuron
@@ -15,9 +19,9 @@ namespace NeuralNetwork
 
         public Neuron[][] network;
 
-        #region Network Initialization
+        #region Network Initialization/Load/Save
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-        public NeuralNetwork(string NeuronsAndLayers) //Initializing a neural network
+        public NeuralNetwork(string NeuronsAndLayers, double randMin, double randMax) //Initializing a neural network
         { 
             string[] neuronsSTR = NeuronsAndLayers.Split(' ');
             uint[] neurons = new uint[neuronsSTR.Length];
@@ -46,20 +50,44 @@ namespace NeuralNetwork
                         ++countOfWeights;
 
                     weightWasZeroREPEAT:
-                        network[i][j].w[a] = Math.Round(rand.NextDouble(), 1); //Random value for the weight
+                        network[i][j].w[a] = Math.Round(rand.NextDouble() * (randMax- randMin) + randMin, 5); //Random value for the weight
                         if (network[i][j].w[a] == 0)
                             goto weightWasZeroREPEAT; //Value of weight cannot be 0
-                        // Console.WriteLine("Weigth " + (i + 1) + " " + (j+1) + " = " + network[i][j].w[a]);
+                         //Console.WriteLine("Weigth " + (i + 1) + " " + (j+1) + " = " + network[i][j].w[a]);
                     }
                 }
             }
         }
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+        public NeuralNetwork(string pathAndName) //Loading a neural network
+        {
+            if (File.Exists(pathAndName))
+            {
+                using (FileStream fs = new FileStream(pathAndName, FileMode.Open))
+                {
+                    BinaryFormatter formatter = new BinaryFormatter();
+                    NeuralNetwork n = (NeuralNetwork)formatter.Deserialize(fs);
+                    network = n.network;
+                    previousWeights = n.previousWeights;
+                }
+            }
+            else
+                throw new ArgumentException("This file does not exist.\rTry to recheck the path or just save new Neural Network with <SaveNetwork> method", "NeuralNetwork");
+        }
+
+        public void SaveNetwork(string pathAndName) //Saving a neural network
+        {
+            using (FileStream fs = new FileStream(pathAndName, FileMode.Create))
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                formatter.Serialize(fs, this);
+            }
+        }
+        //-------------------------------------------------------------------------------------------------------------------------------------------------
         #endregion
 
         #region NeuralNetwork Run
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-        public Neuron[] RunNetwork(double[] training)
+        //-------------------------------------------------------------------------------------------------------------------------------------------------
+        public Neuron[] RunNetwork(double[] training) //Function to Run the network
         {
             //INPUT assignment
             for (uint j = 0; j < training.Length; ++j)
@@ -81,7 +109,7 @@ namespace NeuralNetwork
             }
 
             return network[network.GetLength(0) - 1];
-        }  //Function to Run the network
+        }
 //-------------------------------------------------------------------------------------------------------------------------------------------------
         private static double Sigmoid(double num)
         {

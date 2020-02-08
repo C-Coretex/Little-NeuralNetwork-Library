@@ -76,7 +76,8 @@ namespace NeuralNetwork
             uint refreshSpeed = 10000;
 
             //Creating an object of NeuralNetwork with same parameters as we described in variables
-            NeuralNetwork network = new NeuralNetwork(NeuronsAndLayers);
+            //NeuralNetwork network = new NeuralNetwork(@"C:\s\Neural.aaa");
+            NeuralNetwork network = new NeuralNetwork(NeuronsAndLayers, 0, 1);
             network.Moment = Moment;
             network.LearningRate = LearningRate;
 
@@ -138,6 +139,8 @@ namespace NeuralNetwork
             Console.WriteLine("\nError count = " + errCount);
             Console.WriteLine("\nNumber of iterations = " + iteration);
             Console.WriteLine("Training time = " + ((double)sw.ElapsedMilliseconds/1000).ToString() + " sec");
+
+            //network.SaveNetwork(@"C:\s\Neural.aaa");
             #endregion
         }
     }
