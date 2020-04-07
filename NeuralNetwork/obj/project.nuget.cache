@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "z4+AyPOic6fKuQ0P6PcMd9+YMNOO8sNjt6Ug8LPY71kEuGi7jzs3rbq+vMd2sDtS/pi9go/3gUFoJ1zbUx1bBg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\valer\\OneDrive\\Desktop\\Programming\\MyRealArtificialIntelligence\\NeuralNetwork\\NeuralNetwork.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\valer\\.nuget\\packages\\easynetq\\3.7.1\\easynetq.3.7.1.nupkg.sha512",
+    "C:\\Users\\valer\\.nuget\\packages\\microsoft.codeanalysis.fxcopanalyzers\\2.9.8\\microsoft.codeanalysis.fxcopanalyzers.2.9.8.nupkg.sha512",
+    "C:\\Users\\valer\\.nuget\\packages\\microsoft.codeanalysis.versioncheckanalyzer\\2.9.8\\microsoft.codeanalysis.versioncheckanalyzer.2.9.8.nupkg.sha512",
+    "C:\\Users\\valer\\.nuget\\packages\\microsoft.codequality.analyzers\\2.9.8\\microsoft.codequality.analyzers.2.9.8.nupkg.sha512",
+    "C:\\Users\\valer\\.nuget\\packages\\microsoft.netcore.analyzers\\2.9.8\\microsoft.netcore.analyzers.2.9.8.nupkg.sha512",
+    "C:\\Users\\valer\\.nuget\\packages\\microsoft.netframework.analyzers\\2.9.8\\microsoft.netframework.analyzers.2.9.8.nupkg.sha512",
+    "C:\\Users\\valer\\.nuget\\packages\\newtonsoft.json\\12.0.2\\newtonsoft.json.12.0.2.nupkg.sha512",
+    "C:\\Users\\valer\\.nuget\\packages\\rabbitmq.client\\5.1.1\\rabbitmq.client.5.1.1.nupkg.sha512"
+  ],
+  "logs": []
+}

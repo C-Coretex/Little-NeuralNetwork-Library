@@ -1,11 +1,21 @@
 ﻿using System;
+using System.Collections;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace NeuralNetwork
 {
+    //---------------------------------------------------------------
+    //
+    //
+    //  This file is a library with public methods to use Neural Network.
+    //  Check another file to understand how to use the library.
+    //  You are free to use the library in yout own needs
+    //
+    //
+    //---------------------------------------------------------------
     [Serializable]
-    class NeuralNetwork
+    class NeuralNetwork //output  =  sum (weights * inputs) + bias 
     {
         public double Moment = 0;
         public double LearningRate = 1;
@@ -16,6 +26,7 @@ namespace NeuralNetwork
             public double[] w;  //  All weights outgoing from this neuron
         }
         private double[][] previousWeights;
+        private uint[] withoutBiasLength;
 
         public Neuron[][] network;
 
@@ -24,36 +35,52 @@ namespace NeuralNetwork
         public NeuralNetwork(string NeuronsAndLayers, double randMin, double randMax) //Initializing a neural network
         { 
             string[] neuronsSTR = NeuronsAndLayers.Split(' ');
-            uint[] neurons = new uint[neuronsSTR.Length];
-            for (uint i = 0; i < neuronsSTR.Length; ++i) //Count of neurons in each layer
-                neurons[i] = Convert.ToUInt32(neuronsSTR[i]);
+            network = new Neuron[neuronsSTR.Length][];
+            withoutBiasLength = new uint[neuronsSTR.Length];
+            ArrayList biases = new ArrayList();
+            for (int i = 0; i < neuronsSTR.Length; ++i) //Count of neurons in each layer
+            {
+                try //Check if there are biases
+                {
+                    uint index = Convert.ToUInt32(neuronsSTR[i]);
+                    network[i] = new Neuron[index];
+                    withoutBiasLength[i] = index;
+                }
+                catch (Exception) //If bias is in the layer then
+                {
+                    if (i == neuronsSTR.Length - 1)
+                        throw new Exception("You cannot add biases to OUTPUT layers");
+                    else
+                    {
+                        biases.Add(i);
+                        uint index = Convert.ToUInt32(neuronsSTR[i][0..^1]) + 1;
+                        network[i] = new Neuron[index]; //Convert only count of neurons without bias(+)
+                        network[i][index - 1].value = 1;
+                        withoutBiasLength[i] = index - 1;
+                    }
+                }
+            }
 
-            network = new Neuron[neurons.Length][];
-            previousWeights = new double[neurons.Length][];
-
-            for (uint i = 0; i < neurons.Length; ++i) //Initializing a Neural Network
-                network[i] = new Neuron[neurons[i]];
-
+            previousWeights = new double[network.Length][];
             //Distribution of values in weights of Neural Network and initializing PreviousWeights
             for (uint i = 0; i < network.Length - 1; ++i) //             Every layer in this NeuralNetwork
             {
-                previousWeights[i] = new double[network[i].Length * network[i + 1].Length];
+                previousWeights[i] = new double[network[i].Length * withoutBiasLength[i + 1]];
                 uint countOfWeights = 0;
 
                 for (uint j = 0; j < network[i].Length; ++j) //          Every neuron in layer[i]
                 {
                     Random rand = new Random();
-                    network[i][j].w = new double[network[i + 1].Length];
+                    network[i][j].w = new double[withoutBiasLength[i + 1]];
                     for (uint a = 0; a < network[i][j].w.Length; ++a) // Every weight from neuron[i][j]
                     {
                         previousWeights[i][countOfWeights] = 0; //PrewiosWeight on the first iteration = 0
                         ++countOfWeights;
 
                     weightWasZeroREPEAT:
-                        network[i][j].w[a] = Math.Round(rand.NextDouble() * (randMax- randMin) + randMin, 5); //Random value for the weight
+                        network[i][j].w[a] = Math.Round(rand.NextDouble() * (randMax - randMin) + randMin, 5); //Random value for the weight
                         if (network[i][j].w[a] == 0)
                             goto weightWasZeroREPEAT; //Value of weight cannot be 0
-                         //Console.WriteLine("Weigth " + (i + 1) + " " + (j+1) + " = " + network[i][j].w[a]);
                     }
                 }
             }
@@ -89,7 +116,7 @@ namespace NeuralNetwork
 
         #region NeuralNetwork Run
         //-------------------------------------------------------------------------------------------------------------------------------------------------
-        public Neuron[] RunNetwork(double[] training) //Function to Run the network
+        public virtual Neuron[] RunNetwork(double[] training) //Function to Run the network
         {
             //INPUT assignment
             for (uint j = 0; j < training.Length; ++j)
@@ -98,11 +125,11 @@ namespace NeuralNetwork
             double output;
             for (uint i = 1; i < network.Length; ++i) //                Every layer in this NeuralNetwork
             {
-                for (uint j = 0; j < network[i].Length; ++j) //         Every neuron in layer[i]
+                for (uint j = 0; j < withoutBiasLength[i]; ++j) //         Every neuron in layer[i]
                 {
-                    //Calculation of value of the neuron, depending on all values of neurons and weights of synapses connected to this neuron
+                    //Calculation value of the neuron, depending on all values of neurons and weights of synapses connected to this neuron
                     output = 0;
-                    for (uint k = 0; k < network[i - 1].Length; ++k) // Summ of every neuron in layer[i-1] * every neuron of neuron[i-1] and it's weight[j]
+                    for (uint k = 0; k < network[i - 1].Length; ++k) // Summ of every neuron in layer[i-1] * every neuron of weight[i-1] = weight[j]
                         output += network[i - 1][k].value * network[i - 1][k].w[j];
 
                     //Value activation 
@@ -121,7 +148,7 @@ namespace NeuralNetwork
 
         #region NeuralNetwork Train
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-        public void TeachNetwork(double[] ideal, Neuron[] output) //Function to Train the network
+        public virtual void TeachNetwork(double[] ideal, Neuron[] output) //Function to Train the network
         {
             //Creating a copy of NeuralNetwork to work with it
             Neuron[][] deltaNetwork = new Neuron[network.Length][];
@@ -134,7 +161,7 @@ namespace NeuralNetwork
 
             //Calculating Delta(OUT) for OUTPUT neurons of the NeuralNetwork 
             for (uint i = 0; i < ideal.Length; ++i)
-                deltaNetwork[deltaNetwork.Length - 1][i].value = DeltaOut(ideal[i], output[i].value);
+                 deltaNetwork[^1][i].value = DeltaOut(ideal[i], output[i].value);
 
             //Calculating Delta(HIDDEN) for HIDDEN neurons the NeuralNetwork 
             for (int i = deltaNetwork.Length - 2; i >= 1; --i) //Start - from the last HIDDEN layer | End - to the firs HIDDEN layer
@@ -149,7 +176,7 @@ namespace NeuralNetwork
                     for (uint a = 0; a < network[i][j].w.Length; ++a) // Every weight from neuron[i][j]
                     {
                         Grad = GRAD(network[i][j].value, deltaNetwork[i + 1][a].value);
-                        delta = deltaW(Grad, previousWeights[i][j]);
+                        delta = DeltaW(Grad, previousWeights[i][j]);
                         network[i][j].w[a] += delta; //Change the weight of synapse (ActualWeight + DeltaOfThisWeight)
                         previousWeights[i][j] = delta;
                     }
@@ -176,7 +203,7 @@ namespace NeuralNetwork
         {
             return (output * delta);
         } //Calculation gradient(gradient descent) for the weight
-        private double deltaW(double Grad, double prWeight)
+        private double DeltaW(double Grad, double prWeight)
         {
             return (LearningRate * Grad + Moment * prWeight);
         } //Calculation delta of the weight
