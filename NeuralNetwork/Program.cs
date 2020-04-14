@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
@@ -19,7 +20,7 @@ namespace NeuralNetwork
     class NeuralNetworkPROBuilder
     {
         const double MomentTemp = 0.7;
-        const double LearningRateTemp = 0.06;
+        const double LearningRateTemp = 0.1;
         const string NeuronsAndLayers = "4+ 15+ 6 3"; //"[0]-InputNeurons, [1]-Neurons In 1-st HiddenLayer,
         //  [2]-Neurons In 2-nd HiddenLayer,[..],[n-1]-Neurons In (n-1)-th HiddenLayer, [n]-OutputNeurons"
         //   put + in each layer (except OUTPUT) to add bias
@@ -34,7 +35,7 @@ namespace NeuralNetwork
         private static TrainAndTest[] AddTrainOrTest(string fullPath)
         {
             string[] lines = File.ReadAllLines(fullPath);
-            //TRAIN units
+            //TRAIN or TEST units
             TrainAndTest[] Data = new TrainAndTest[lines.Length / 2];
             //Training and test files are .txt, where non-odd lines are INPUT values and odd lines are OUTPUT values
 
@@ -59,6 +60,7 @@ namespace NeuralNetwork
             }
 
             return Data;
+          //  return Data;
         }
         private static uint CheckForMistakes (ref NeuralNetwork network, ref TrainAndTest[] testData)
         {
@@ -111,11 +113,14 @@ namespace NeuralNetwork
             sepByThous.NumberGroupSeparator = " ";
 
             #region Training&Test initialization
+            string firstPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-            TrainAndTest[] trainingData = AddTrainOrTest(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\numbers.txt"));
+            firstPath = Path.Combine(AppContext.BaseDirectory, @"..\..\..\TrainingAndTest\");
+
+            TrainAndTest[] trainingData = AddTrainOrTest(firstPath + "numbers.txt");
             //The same for TEST units
-            TrainAndTest[] testData = AddTrainOrTest(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\numbersTEST.txt"));
-            
+            TrainAndTest[] testData = AddTrainOrTest(firstPath + "numbersTEST.txt");
+
             #endregion
 
             #region Main part - network training
