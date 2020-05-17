@@ -3,7 +3,7 @@ using System.Collections;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace NeuralNetwork
+namespace NN
 {
     //---------------------------------------------------------------
     //
@@ -15,9 +15,9 @@ namespace NeuralNetwork
     //
     //---------------------------------------------------------------
     [Serializable]
-    class NeuralNetwork //output  =  sum (weights * inputs) + bias 
+    public class NeuralNetwork //output  =  sum (weights * inputs) + bias 
     {
-        public double Moment = 0;
+        public double Moment;
         public double LearningRate = 1;
         [Serializable]
         public struct Neuron
@@ -34,7 +34,7 @@ namespace NeuralNetwork
 //-------------------------------------------------------------------------------------------------------------------------------------------------
         public NeuralNetwork(string NeuronsAndLayers, double randMin, double randMax) //Initializing a neural network
         { 
-            string[] neuronsSTR = NeuronsAndLayers.Split(' ');
+            string[] neuronsSTR = NeuronsAndLayers?.Split(' ');
             network = new Neuron[neuronsSTR.Length][];
             withoutBiasLength = new uint[neuronsSTR.Length];
             ArrayList biases = new ArrayList();
@@ -147,7 +147,7 @@ namespace NeuralNetwork
         #endregion
 
         #region NeuralNetwork Train
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------------------------------------------------
         public virtual void TeachNetwork(double[] ideal, Neuron[] output) //Function to Train the network
         {
             //Creating a copy of NeuralNetwork to work with it

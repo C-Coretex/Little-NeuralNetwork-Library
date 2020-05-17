@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Threading;
+using NN;
+using static NN.NeuralNetwork;
 
-namespace NeuralNetwork
+namespace NeuralNetworkExample
 {
     //---------------------------------------------------------------
     //
@@ -68,7 +69,7 @@ namespace NeuralNetwork
 
             for (uint i = 0; i < testData.GetLength(0); ++i) //Run through all TEST units
             {
-                NeuralNetwork.Neuron[] answer = network.RunNetwork(testData[i].IN);
+                Neuron[] answer = network.RunNetwork(testData[i].IN);
                 double[] _answer = new double[answer.Length];
 
                 for (uint j = 0; j < answer.Length; ++j) //Normalizing answers in this unit
@@ -147,7 +148,7 @@ namespace NeuralNetwork
                 for (uint i = 0; i < trainingData.Length; ++i) //Run through all TRAIN units
                 {
                     //Running the network with current INPUT values of this unit
-                    NeuralNetwork.Neuron[] endValue = network.RunNetwork(trainingData[i].IN);
+                    Neuron[] endValue = network.RunNetwork(trainingData[i].IN);
 
                     //Counting an error of current unit
                     end = 0;
