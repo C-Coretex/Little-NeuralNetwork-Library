@@ -1,10 +1,13 @@
 # My-Real-Neural-Network
+
+![Training example](https://github.com/C-Coretex/Little-Neural-Network-Library/blob/master/NeuralNetwork/TrainingAndTest/TrainingPhoto.png)
+
 A library that is made by me. `Program.cs` is an example of how to use the library, `NeuralNetwork.cs` is the solution for the library and you can find the .dll in the folder `"DLL is HERE"`.
 
 ## Table of contents
-* [Setting up the library](#setting-up)
+* [Setting up the library](#setting-up-the-library)
 * [NeuralNetwork creation](#neuralnetwork-creation)
-* [NeuralNetwork usage](#NeuralNetwork-usage)
+* [NeuralNetwork usage](#neuralnetwork-usage)
 * [Contributing](#contributing)
 * [Notes](#notes)
 ---
