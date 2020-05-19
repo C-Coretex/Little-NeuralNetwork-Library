@@ -19,22 +19,24 @@ namespace NN
     {
         public double Moment;
         public double LearningRate = 1;
+
         [Serializable]
         public struct Neuron
         {
             public double value; // Value of the neuron
             public double[] w;  //  All weights outgoing from this neuron
         }
-        Neuron[][] deltaNetwork;
+        public Neuron[][] network;
+        private Neuron[][] deltaNetwork;
+
         private double[][] previousWeights;
         private uint[] withoutBiasLength;
 
+        //Introducing all the variables that are used in for-loops here, so garbage collector will no longer execute (it is used for perfomance optimization)
         private int j;
         private int i;
         private int k;
         private int a;
-
-        public Neuron[][] network;
 
         #region Network Initialization/Load/Save
 //-------------------------------------------------------------------------------------------------------------------------------------------------
