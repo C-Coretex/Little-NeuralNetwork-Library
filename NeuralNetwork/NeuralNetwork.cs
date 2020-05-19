@@ -17,16 +17,22 @@ namespace NN
     [Serializable]
     public class NeuralNetwork //output  =  sum (weights * inputs) + bias 
     {
-        public double Moment;
-        public double LearningRate = 1;
+        public double Moment { get; set; } = 0;
+        public double LearningRate { get; set; } = 1;
 
         [Serializable]
+        /// <summary>
+        /// The struct 'Neuron[]'. Has double 'value' - value of the neuron and double[] 'w' - weights outhoing from this neuron
+        /// </summary>
         public struct Neuron
         {
             public double value; // Value of the neuron
             public double[] w;  //  All weights outgoing from this neuron
         }
-        public Neuron[][] network;
+        /// <summary>
+        /// The public struct(Neuron[][]) network. To access to the certain neuron type: network[i][j]
+        /// </summary>
+        public Neuron[][] network { get; set; }
         private Neuron[][] deltaNetwork;
 
         private double[][] previousWeights;
@@ -39,7 +45,13 @@ namespace NN
         private int a;
 
         #region Network Initialization/Load/Save
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------------------------------------------------
+        /// <summary>
+        /// Creates the network.
+        /// </summary>
+        /// <param name="NeuronsAndLayers">The struct of the network. For instance, "4+ 15+ 5 3" whare '+' means bias.</param>
+        /// <param name="randMin">Minimal random weight of synapse.</param>
+        /// <param name="randMax">Maximal random weight of synapse.</param>
         public NeuralNetwork(string NeuronsAndLayers, double randMin, double randMax) //Initializing a neural network
         { 
             string[] neuronsSTR = NeuronsAndLayers?.Split(' ');
@@ -102,6 +114,10 @@ namespace NN
                     deltaNetwork[i][j] = network[i][j];
             }
         }
+        /// <summary>
+        /// Loads the network.
+        /// </summary>
+        /// <param name="pathAndName">The path to the file with it's name.</param>
         public NeuralNetwork(string pathAndName) //Loading a neural network
         {
             if (File.Exists(pathAndName))
@@ -129,6 +145,10 @@ namespace NN
                 throw new ArgumentException("This file does not exist.\rTry to recheck the path or just save new Neural Network with <SaveNetwork> method", "NeuralNetwork");
         }
 
+        /// <summary>
+        /// Saves the network.
+        /// </summary>
+        /// <param name="pathAndName">The path to the file with it's name.</param>
         public void SaveNetwork(string pathAndName) //Saving a neural network
         {
             using (FileStream fs = new FileStream(pathAndName, FileMode.Create))
@@ -142,7 +162,11 @@ namespace NN
 
         #region NeuralNetwork Run
         //-------------------------------------------------------------------------------------------------------------------------------------------------
-       
+        /// <summary>
+        /// Runs the network and returns Output neurons with the struct Neuron[].
+        /// </summary>
+        /// <param name="training">This is array that contains ont training set(iteration).</param>
+        /// <returns>Neuron[]</returns>
         public virtual Neuron[] RunNetwork(double[] training) //Function to Run the network
         {
             //INPUT assignment
@@ -175,6 +199,12 @@ namespace NN
 
         #region NeuralNetwork Train
         //-------------------------------------------------------------------------------------------------------------------------------------------------
+        /// <summary>
+        /// Teaches the network.
+        /// </summary>
+        /// <param name="ideal">The expected values(double[]).</param>
+        /// <param name="output">The actual values(Neuron[]).</param>
+        ///
         public virtual void TeachNetwork(double[] ideal, Neuron[] output) //Function to Train the network
         {
             //Calculating Delta(OUT) for OUTPUT neurons of the NeuralNetwork 
@@ -199,7 +229,7 @@ namespace NN
                         previousWeights[i][j] = delta;
                     }
         }
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------------------------------------------------
         private double SigmoidError(double output)
         {
             return ((1 - output) * output);

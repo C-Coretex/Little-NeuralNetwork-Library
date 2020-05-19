@@ -106,7 +106,6 @@ namespace NeuralNetworkExample
                 }
             }
         }
-
         static void Main()
         {
             var sepByThous = (NumberFormatInfo)CultureInfo.InvariantCulture.NumberFormat.Clone();
