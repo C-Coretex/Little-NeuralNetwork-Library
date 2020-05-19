@@ -17,7 +17,6 @@ namespace NeuralNetworkExample
     //
     //---------------------------------------------------------------
 
-
     class NeuralNetworkPROBuilder
     {
         const double MomentTemp = 0.7;
