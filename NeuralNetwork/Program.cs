@@ -97,7 +97,7 @@ namespace NeuralNetworkExample
         private static bool pressedENTER = false;
         private static void CheckForEnter()
         {
-            while (!pressedENTER)
+           while (!pressedENTER)
             {
                 if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Enter)
                 {

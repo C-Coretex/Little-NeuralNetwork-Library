@@ -223,8 +223,8 @@ namespace NN
                 for (j = 0; j < network[i].Length; ++j) //          Every neuron in layer[i]
                     for (a = 0; a < network[i][j].w.Length; ++a) // Every weight from neuron[i][j]
                     {
-                        Grad = GRAD(network[i][j].value, deltaNetwork[i + 1][a].value);
-                        delta = DeltaW(Grad, previousWeights[i][j]);
+                        Grad = network[i][j].value * deltaNetwork[i + 1][a].value; //Calculating gradient(gradient descent) for the weight
+                        delta = LearningRate*Grad + Moment*previousWeights[i][j]; //Calculating delta of the weight
                         network[i][j].w[a] += delta; //Change the weight of synapse (ActualWeight + DeltaOfThisWeight)
                         previousWeights[i][j] = delta;
                     }
@@ -247,14 +247,6 @@ namespace NN
 
             return (SigmoidError(output) * actualSum);
         } //Calculation delta of HIDDEN neuron
-        private double GRAD(double output, double delta)
-        {
-            return (output * delta);
-        } //Calculation gradient(gradient descent) for the weight
-        private double DeltaW(double Grad, double prWeight)
-        {
-            return (LearningRate * Grad + Moment * prWeight);
-        } //Calculation delta of the weight
         #endregion
 
     }
