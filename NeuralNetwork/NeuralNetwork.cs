@@ -38,11 +38,14 @@ namespace NN
         private double[][] previousWeights;
         private uint[] withoutBiasLength;
 
-        //Introducing all the variables that are used in for-loops here, so garbage collector will no longer execute (it is used for perfomance optimization)
+        //Introducing all the variables that are used in the functions, so garbage collector will no longer execute (it is used for perfomance optimization)
         private int j;
         private int i;
         private int k;
         private int a;
+        double output;
+        double Grad;
+        double delta;
 
         #region Network Initialization/Load/Save
         //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -117,7 +120,7 @@ namespace NN
         /// <summary>
         /// Loads the network.
         /// </summary>
-        /// <param name="pathAndName">The path to the file with it's name.</param>
+        /// <param name="pathAndName">The path to the file with its name.</param>
         public NeuralNetwork(string pathAndName) //Loading a neural network
         {
             if (File.Exists(pathAndName))
@@ -148,7 +151,7 @@ namespace NN
         /// <summary>
         /// Saves the network.
         /// </summary>
-        /// <param name="pathAndName">The path to the file with it's name.</param>
+        /// <param name="pathAndName">The path to the file with its name.</param>
         public void SaveNetwork(string pathAndName) //Saving a neural network
         {
             using (FileStream fs = new FileStream(pathAndName, FileMode.Create))
@@ -173,12 +176,11 @@ namespace NN
             for (j = 0; j < training.Length; ++j)
                 network[0][j].value = training[j];
 
-            double output;
             for (i = 1; i < network.Length; ++i) //                Every layer in this NeuralNetwork
             {
                 for (j = 0; j < withoutBiasLength[i]; ++j) //         Every neuron in layer[i]
                 {
-                    //Calculation value of the neuron, depending on all values of neurons and weights of synapses connected to this neuron
+                    // Calculation value of the neuron, depending on all values of neurons and weights of synapses connected to this neuron
                     output = 0;
                     for (k = 0; k < network[i - 1].Length; ++k) // Summ of every neuron in layer[i-1] * every neuron of weight[i-1] = weight[j]
                         output += network[i - 1][k].value * network[i - 1][k].w[j];
@@ -217,8 +219,6 @@ namespace NN
                     deltaNetwork[i][j].value = DeltaHidden(network[i][j].w, deltaNetwork[i + 1], network[i][j].value);
 
             //Calculating delta of all the weights to change them
-            double Grad;
-            double delta;
             for (i = deltaNetwork.Length - 2; i >= 0; --i) //        Start - from the last HIDDEN layer | End - to the firs layer (INPUT)
                 for (j = 0; j < network[i].Length; ++j) //          Every neuron in layer[i]
                     for (a = 0; a < network[i][j].w.Length; ++a) // Every weight from neuron[i][j]
