@@ -65,7 +65,7 @@ Neuron[] endValue = network.RunNetwork(trainingData[i].IN); //Values of Input ne
 ```C#
 network.TeachNetwork(trainingData[i].OUT); //Expected values of Output neurons
 ```
-*Where `trainingData[i].OUT` is an array with expected Output value of Neurons. In this case, it may be `[0, 0, 0]` (as it was written earlier, the current Neural Network has only 3 Output Neurons).*
+*Where `trainingData[i].OUT` is an array with expected Output value of Neurons. In this case, it may be `[0, 1, 0]` (as it was written earlier, the current Neural Network has only 3 Output Neurons).*
 
 ---
 
