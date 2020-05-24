@@ -155,7 +155,7 @@ namespace NeuralNetworkExample
                     error = end / trainingData.Length; //((i-a1)*(i1-a1)+...+(in-an)*(in-an))/n
                     errorSum += error;
 
-                    network.TeachNetwork(trainingData[i].OUT, endValue);
+                    network.TeachNetwork(trainingData[i].OUT);
                 }
                 if (iteration++ % refreshSpeed == 0)
                     Console.WriteLine(iteration.ToString("#,0", sepByThous) + "  average error = " + Math.Round((errorSum / trainingData.GetLength(0)) * 100, 5) + "%" + "    =    " + Math.Round(errorSum * 100, 5) + "% general,    " + ((double)sw.ElapsedMilliseconds / 1000).ToString("#,0.000", sepByThous) + " sec");

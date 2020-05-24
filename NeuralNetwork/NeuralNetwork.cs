@@ -207,11 +207,11 @@ namespace NN
         /// <param name="ideal">The expected values(double[]).</param>
         /// <param name="output">The actual values(Neuron[]).</param>
         ///
-        public virtual void TeachNetwork(double[] ideal, Neuron[] output) //Function to Train the network
+        public virtual void TeachNetwork(double[] ideal) //Function to Train the network
         {
             //Calculating Delta(OUT) for OUTPUT neurons of the NeuralNetwork 
             for (i = 0; i < ideal.Length; ++i)
-                 deltaNetwork[^1][i].value = DeltaOut(ideal[i], output[i].value);
+                 deltaNetwork[^1][i].value = DeltaOut(ideal[i], network[^1][i].value);
 
             //Calculating Delta(HIDDEN) for HIDDEN neurons the NeuralNetwork 
             for (i = deltaNetwork.Length - 2; i >= 1; --i) //Start - from the last HIDDEN layer | End - to the firs HIDDEN layer
