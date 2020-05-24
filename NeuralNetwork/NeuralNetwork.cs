@@ -5,12 +5,6 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace NN
 {
-    [Serializable]
-    public struct Neuron // TODO: separate in to file
-    {
-        public double value;
-        public double[] weights;
-    }
     /// <summary>
     /// This file is a library with public methods to use Neural Network.
     /// Check another file to understand how to use the library.
