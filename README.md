@@ -1,4 +1,4 @@
-# My-Real-Neural-Network
+# Real Neural Network
 
 ![Training example](https://github.com/C-Coretex/Little-Neural-Network-Library/blob/master/NeuralNetwork/TrainingAndTest/TrainingPhoto.png)
 
@@ -8,6 +8,7 @@ A library that is made by me. `Program.cs` is an example of how to use the libra
 * [Setting up the library](#setting-up-the-library)
 * [NeuralNetwork creation](#neuralnetwork-creation)
 * [NeuralNetwork usage](#neuralnetwork-usage)
+* [NeuralNetwork teaching example](#example-of-each-teach-iteration)
 * [Contributing](#contributing)
 * [Notes](#notes)
 ---
@@ -24,17 +25,29 @@ using static NN.NeuralNetwork;
 
 
 ## How to use the library
+
+### Neuron layer types
+There are 3 types of neuron layers:
+* Input neurons
+* Hidden neurons
+* Output neurons
+
+There may be one bias in each layer (except output). It's value is always '1' in every scenario. 
+
 ### NeuralNetwork creation
 
 Firstly, you have to declare the struct of the Neural Network.
 ```C#
-const string NeuronsAndLayers = "4+ 15+ 6 3"; //"[0]-InputNeurons, [1]-Neurons In 1-st HiddenLayer,
-// [2]-Neurons In 2-nd HiddenLayer,[..],[n-1]-Neurons In (n-1)-th HiddenLayer, [n]-OutputNeurons"
+const string NeuronsAndLayers = "4+ 15+ 6 3"; 
+// 4+  — input neurons and 1 bias neuron ([0]-InputNeurons)
+// 15+ — hidden neurons in 1-st hidden layer and 1 bias neuron ([1]-Neurons In 1-st HiddenLayer) ([..])
+// 6  — neurons in 2-nd hidden layer ([n-1]-Neurons In 2-nd HiddenLayer)
+// 3  — output neurons ([n]-OutputNeurons)
 // put + in each layer (except OUTPUT) to add bias
 ```
 *You **must** declare at least 2 layers of the Neural Network. [0] (Input) and [n] (Output).*
 
-- To create a Neural Network you need to create an object of a class `"NN.NeuralNetwork"`:
+- To create a Neural Network you need to create an object of a class `"NN.NeuralNetwork"` using its constructor:
 ```C#
 NeuralNetwork network = new NeuralNetwork(NeuronsAndLayers, -1, 1);
 ```
@@ -44,12 +57,11 @@ NeuralNetwork network = new NeuralNetwork(NeuronsAndLayers, -1, 1);
 ```C#
 NeuralNetwork network = new NeuralNetwork(NeuronsAndLayers, -1, 1)
 {
-      Moment = MyMoment,
-      LearningRate = MyLearningRate
+      Moment = MyMoment, // from 0 to 1, for example 0.5
+      LearningRate = MyLearningRate // from 0.1 to ∞, for example 1.2
 };
 ```
 ---
-
 
 ### NeuralNetwork usage
 - To run the Neural Network use:
@@ -65,14 +77,13 @@ Neuron[] endValue = network.RunNetwork(trainingData[i].IN);
 ```C#
 network.TeachNetwork(trainingData[i].OUT, endValue);
 ```
-*Where `trainingData[i].OUT` is an array with expected Output value of Neurons. In this case, it may be `[0, 0, 0]` (as it was written earlier, the current Neural Network has only 3 Output Neurons). `endValue` is an array with actual Output values of Neurons (that you've got after running the Network).*
+*Where `trainingData[i].OUT` is an array with expected Output value of Neurons. In this case, it may be `[0, 1, 0]` (as it was written earlier, the current Neural Network has only 3 Output Neurons).*
 
 ---
 
-
 ### NeuralNetwork Load/Save
 
-- To Load the Neural Network use this method:
+- To Load the Neural Network use this constructor:
 ```C#
 NeuralNetwork network = new NeuralNetwork(@"C:\s\MyNeural.aaa");
 ``` 
@@ -82,10 +93,36 @@ NeuralNetwork network = new NeuralNetwork(@"C:\s\MyNeural.aaa");
 ```C#
 network.SaveNetwork(@"C:\s\Neural.aaa");
 ``` 
-*The only argument of this function is a path to the place where the Network will be saved and the name of the Neural Network (as you could guess).*
+*The only argument of this function is a path where the Network will be saved and the name of the Neural Network file (as you could guess).*
 
 ---
 
+#### Example of each teach iteration
+Creating a new Neural Network (or you can load it if you already have one)
+```C#
+string NeuronsAndLayers = "7 8+ 6 5 3";
+NeuralNetwork network = new NeuralNetwork(NeuronsAndLayers, -1, 1)
+{
+    Moment = 0.5,
+    LearningRate = 0.7
+};
+```
+Declaring input data:
+```C#
+double[] inputData = new double[] { 1, 0, 1, 1, 0, 1, 1 };
+```
+Declaring output data:
+```C#
+double[] outputData = new double[] { 1, 0, 1 };
+```
+Neural Network training:
+```C#
+Neuron[] outputNeurons = network.RunNetwork(inputData);
+network.TeachNetwork(outputData);
+```
+Do it in a loop for greater efficiency. For more information check the example `Program.cs`.
+
+---
 
 
 ## Contributing
