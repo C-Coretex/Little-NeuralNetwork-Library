@@ -54,7 +54,7 @@ NeuralNetwork network = new NeuralNetwork(NeuronsAndLayers, -1, 1)
 ### NeuralNetwork usage
 - To run the Neural Network use:
 ```C#
-Neuron[] endValue = network.RunNetwork(trainingData[i].IN);
+Neuron[] endValue = network.RunNetwork(trainingData[i].IN); //Values of Input neurons
 ```
 *[Neuron[]](#neuron-struct) is a struct of a NeuralNetwork class. Each neuron has it's current value and outgoing synapse weights.*
 *The only argument of the function `RunNetwork()` is an array with Input values of Neurons. In this case, it may be `[1, 1, 0, 1]` (as it was written earlier, the current Neural Network has only 4 Input Neurons).*
@@ -63,9 +63,9 @@ Neuron[] endValue = network.RunNetwork(trainingData[i].IN);
 - To teach the Network by current example (to make one iteration of teaching by current training example) use this function:
 
 ```C#
-network.TeachNetwork(trainingData[i].OUT, endValue);
+network.TeachNetwork(trainingData[i].OUT); //Expected values of Output neurons
 ```
-*Where `trainingData[i].OUT` is an array with expected Output value of Neurons. In this case, it may be `[0, 0, 0]` (as it was written earlier, the current Neural Network has only 3 Output Neurons). `endValue` is an array with actual Output values of Neurons (that you've got after running the Network).*
+*Where `trainingData[i].OUT` is an array with expected Output value of Neurons. In this case, it may be `[0, 0, 0]` (as it was written earlier, the current Neural Network has only 3 Output Neurons).*
 
 ---
 
