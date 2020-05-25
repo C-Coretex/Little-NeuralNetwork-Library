@@ -15,11 +15,11 @@ A library that is made for community. `Program.cs` is an example of how to use t
 
 
 ## Setting up the library
+**If you are using `.Net Framework` you must uncheck `Prefer 32-bit` in project preferences. [Uncheck #1](https://www.neovolve.com/2015/07/31/disable-prefer-32-bit/) or [Uncheck #2](https://www.codeofclimber.ru/2015/make-sure-prefer-32-bit-option-is-turned-off-for-net-4-5-executables/)**
 
 Add the DLL to your project ([how to add dll in VS](https://www.c-sharpcorner.com/UploadFile/1e050f/creating-and-using-dll-class-library-in-C-Sharp/)) and type this:
 ```C#
 using NN;
-using static NN.NeuralNetwork;
 ```
 ---
 
@@ -98,7 +98,8 @@ network.SaveNetwork(@"C:\s\Neural.aaa");
 ---
 
 ### Example of each teach iteration
-Creating a new Neural Network (or you can load it if you already have one):
+
+- Creating a new Neural Network (or you can load it if you already have one):
 ```C#
 string NeuronsAndLayers = "7 8+ 6 5 3";
 NeuralNetwork network = new NeuralNetwork(NeuronsAndLayers, -1, 1)
@@ -107,24 +108,46 @@ NeuralNetwork network = new NeuralNetwork(NeuronsAndLayers, -1, 1)
     LearningRate = 0.7
 };
 ```
-Declaring input data:
+
+- Declaring input data:
 ```C#
 double[] inputData = new double[] { 1, 0, 1, 1, 0, 1, 1 };
 ```
-Declaring output data:
+
+- Declaring output data:
 ```C#
 double[] outputData = new double[] { 1, 0, 1 };
 ```
-Neural network teaching:
+
+- Neural network teaching:
 ```C#
 Neuron[] outputNeurons = network.RunNetwork(inputData);
 network.TeachNetwork(outputData);
 ```
-Alternative teaching (same way but shorter):
+
+- Alternative teaching (so you don't have to `Run` the Network manually before Teaching):
 ```C#
 network.TeachNetwork(inputData, outputData);
 ```
-Do it in a loop for greater efficiency. For more information check the example `Program.cs`.
+
+- Neural network running:
+```C#
+Neuron[] outputNeurons = network.RunNetwork(inputData);
+```
+
+- Counting the error of the outpt
+```C#
+Neuron[] outputNeurons = network.RunNetwork(inputData);
+
+//Counting an error of current unit
+end = 0;
+for (uint neuronIndex = 0; neuronIndex < outputNeurons.Length; ++neuronIndex)
+         end += Math.Pow(outputData[neuronIndex] - outputNeurons[neuronIndex].value, 2);
+error = end / outputData.Length; //((i1[expected]-a1[output])*(i1-a1)+...+(in-an)*(in-an))/n
+errorSum += error;
+```
+
+Do it in a loop for greater efficiency. For more information check the example in `Program.cs`.
 
 ---
 
