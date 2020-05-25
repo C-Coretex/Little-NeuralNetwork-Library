@@ -60,9 +60,9 @@ namespace NeuralNetworkExample
             }
 
             return Data;
-          //  return Data;
+            //  return Data;
         }
-        private static uint CheckForMistakes (ref NeuralNetwork network, ref TrainAndTest[] testData)
+        private static uint CheckForMistakes(ref NeuralNetwork network, ref TrainAndTest[] testData)
         {
             uint errCount = 0;
 
@@ -97,7 +97,7 @@ namespace NeuralNetworkExample
         private static bool pressedENTER = false;
         private static void CheckForEnter()
         {
-           while (!pressedENTER)
+            while (!pressedENTER)
             {
                 if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Enter)
                 {
@@ -166,10 +166,10 @@ namespace NeuralNetworkExample
             #region Output
             uint errCount = CheckForMistakes(ref network, ref testData);
 
-            Console.WriteLine("\nAccuracy = " + Math.Round((double)(testData.GetLength(0)-(errCount)) / testData.GetLength(0) * 100, 3) + "%");
-            Console.WriteLine("Right answers from the test = " + (testData.GetLength(0)-errCount).ToString("#,0", sepByThous) + " of " + testData.GetLength(0).ToString("#,0", sepByThous));
+            Console.WriteLine("\nAccuracy = " + Math.Round((double)(testData.GetLength(0) - (errCount)) / testData.GetLength(0) * 100, 3) + "%");
+            Console.WriteLine("Right answers from the test = " + (testData.GetLength(0) - errCount).ToString("#,0", sepByThous) + " of " + testData.GetLength(0).ToString("#,0", sepByThous));
             Console.WriteLine("\nNumber of iterations = " + iteration.ToString("#,0", sepByThous));
-            Console.WriteLine("Training time = " + ((double)sw.ElapsedMilliseconds/1000).ToString("#,0.000", sepByThous) + " sec");
+            Console.WriteLine("Training time = " + ((double)sw.ElapsedMilliseconds / 1000).ToString("#,0.000", sepByThous) + " sec");
 
             //network.SaveNetwork(@"C:\s\Neural.aaa");
             #endregion

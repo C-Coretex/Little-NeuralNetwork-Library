@@ -2,7 +2,7 @@
 
 ![Training example](https://github.com/C-Coretex/Little-Neural-Network-Library/blob/master/NeuralNetwork/TrainingAndTest/TrainingPhoto.png)
 
-A library that is made by me. `Program.cs` is an example of how to use the library, `NeuralNetwork.cs` is the solution for the library and you can find the .dll in the folder `"DLL is HERE"`.
+A library that is made for community. `Program.cs` is an example of how to use the library, `NeuralNetwork.cs` is the solution for the library and you can find the .dll in the folder `"DLL is HERE"`.
 
 ## Table of contents
 * [Setting up the library](#setting-up-the-library)
@@ -28,9 +28,9 @@ using static NN.NeuralNetwork;
 
 ### Neuron layer types
 There are 3 types of neuron layers:
-* Input neurons
-* Hidden neurons
-* Output neurons
+* Input layer
+* Hidden layer
+* Output layer
 
 There may be one bias in each layer (except output). It's value is always '1' in every scenario. 
 
@@ -68,16 +68,16 @@ NeuralNetwork network = new NeuralNetwork(NeuronsAndLayers, -1, 1)
 ```C#
 Neuron[] endValue = network.RunNetwork(trainingData[i].IN);
 ```
-*[Neuron[]](#neuron-struct) is a struct of a NeuralNetwork class. Each neuron has it's current value and outgoing synapse weights.*
-*The only argument of the function `RunNetwork()` is an array with Input values of Neurons. In this case, it may be `[1, 1, 0, 1]` (as it was written earlier, the current Neural Network has only 4 Input Neurons).*
-*The function returns Output value of Neurons, so you can interpret it as you wish*
+`[Neuron[]](#neuron-struct)` is a struct of a NeuralNetwork class. Each neuron has it's current value and outgoing synapse weights.
+The only argument of the function `RunNetwork()` is an array with Input values of Neurons. In this case, it may be `[1, 1, 0, 1]` (as it was written earlier, the current Neural Network has only 4 Input Neurons).
+The function returns Output value of Neurons, so you can interpret it as you wish
 
 - To teach the Network by current example (to make one iteration of teaching by current training example) use this function:
 
 ```C#
-network.TeachNetwork(trainingData[i].OUT, endValue);
+network.TeachNetwork(trainingData[i].OUT);
 ```
-*Where `trainingData[i].OUT` is an array with expected Output value of Neurons. In this case, it may be `[0, 1, 0]` (as it was written earlier, the current Neural Network has only 3 Output Neurons).*
+*Where `trainingData[i].OUT` is an array with expected output value of neurons. In this case, it may be `[0, 1, 0]` (as it was written earlier, the current Neural Network has only 3 output neurons).*
 
 ---
 
@@ -98,7 +98,7 @@ network.SaveNetwork(@"C:\s\Neural.aaa");
 ---
 
 #### Example of each teach iteration
-Creating a new Neural Network (or you can load it if you already have one)
+Creating a new Neural Network (or you can load it if you already have one):
 ```C#
 string NeuronsAndLayers = "7 8+ 6 5 3";
 NeuralNetwork network = new NeuralNetwork(NeuronsAndLayers, -1, 1)
@@ -115,10 +115,14 @@ Declaring output data:
 ```C#
 double[] outputData = new double[] { 1, 0, 1 };
 ```
-Neural Network training:
+Neural network teaching:
 ```C#
 Neuron[] outputNeurons = network.RunNetwork(inputData);
 network.TeachNetwork(outputData);
+```
+Alternative teaching (same way but shorter):
+```C#
+network.TeachNetwork(inputData, outputData);
 ```
 Do it in a loop for greater efficiency. For more information check the example `Program.cs`.
 
@@ -137,10 +141,11 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 ### Neuron struct
 
 ```C#
+[Serializable]
 public struct Neuron
 {
-    public double value; // Value of the neuron
-    public double[] w;  //  All weights outgoing from this neuron
+      public double value;
+      public double[] weights;
 }
 ```
 ---
