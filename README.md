@@ -97,7 +97,7 @@ network.SaveNetwork(@"C:\s\Neural.aaa");
 
 ---
 
-#### Example of each teach iteration
+### Example of each teach iteration
 Creating a new Neural Network (or you can load it if you already have one):
 ```C#
 string NeuronsAndLayers = "7 8+ 6 5 3";
