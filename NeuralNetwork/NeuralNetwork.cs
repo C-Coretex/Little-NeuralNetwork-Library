@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace NN
@@ -36,7 +34,7 @@ namespace NN
         double Grad;
         double delta;
 
-
+        #region Network Initialization/Load/Save
         /// <summary>
         /// Creates the network.
         /// </summary>
@@ -48,7 +46,7 @@ namespace NN
             string[] neuronsSTR = NeuronsAndLayers?.Split(' ');
             Network = new Neuron[neuronsSTR.Length][];
             withoutBiasLength = new uint[neuronsSTR.Length];
-            ArrayList biases = new ArrayList();
+            System.Collections.ArrayList biases = new System.Collections.ArrayList();
             for (i = 0; i < neuronsSTR.Length; ++i) //Count of neurons in each layer
             {
                 try //Check if there are biases
@@ -110,11 +108,11 @@ namespace NN
         /// <param name="pathAndName">The path to the file with its name.</param>
         public NeuralNetwork(string pathAndName)
         {
-            if (File.Exists(pathAndName))
+            if (System.IO.File.Exists(pathAndName))
             {
                 try
                 {
-                    using (FileStream fs = new FileStream(pathAndName, FileMode.Open))
+                    using (System.IO.FileStream fs = new System.IO.FileStream(pathAndName, System.IO.FileMode.Open))
                     {
                         BinaryFormatter formatter = new BinaryFormatter();
                         NeuralNetwork n = (NeuralNetwork)formatter.Deserialize(fs);
@@ -126,7 +124,7 @@ namespace NN
                 }
                 catch(Exception ex)
                 {
-                    throw new IOException($"Couldn't open file {pathAndName}\r\n{ex.ToString()}");
+                    throw new System.IO.IOException($"Couldn't open file {pathAndName}\r\n{ex.ToString()}");
                 }
 
                 //Creating a copy of NeuralNetwork to work with it
@@ -139,7 +137,7 @@ namespace NN
                 }
             }
             else
-                throw new FileNotFoundException("This file does not exist.\rTry to recheck the path or just save new Neural Network with <SaveNetwork> method", pathAndName);
+                throw new System.IO.FileNotFoundException("This file does not exist.\rTry to recheck the path or just save new Neural Network with <SaveNetwork> method", pathAndName);
         }
 
         /// <summary>
@@ -148,13 +146,15 @@ namespace NN
         /// <param name="pathAndName">The path to the file with its name.</param>
         public void SaveNetwork(string pathAndName)
         {
-            using (FileStream fs = new FileStream(pathAndName, FileMode.Create))
+            using (System.IO.FileStream fs = new System.IO.FileStream(pathAndName, System.IO.FileMode.Create))
             {
                 BinaryFormatter formatter = new BinaryFormatter();
                 formatter.Serialize(fs, this);
             }
         }
+        #endregion
 
+        #region NeuralNetwork Run
         /// <summary>
         /// Runs the network and returns Output neurons with the struct Neuron[].
         /// </summary>
@@ -183,10 +183,18 @@ namespace NN
             return Network[Network.GetLength(0) - 1];
         }
 
+        //===========================================================================================================
+        private double Sigmoid(double num)
+        {
+            return (1.0 / (1 + Math.Pow(Math.E, -num)));
+        }
+        #endregion
+
+        #region NeuralNetwork Train
         /// <summary>
         /// Function to Train the network after run
         /// </summary>
-        /// <param name="ideal">The expected values(double[]).</param>
+        /// <param name="ideal">Expected values(double[]).</param>
         public virtual void TeachNetwork(double[] ideal)
         {
             //Calculating Delta(OUT) for OUTPUT neurons of the NeuralNetwork 
@@ -214,28 +222,22 @@ namespace NN
         /// Function to Train the network.
         /// </summary>
         /// <param name="input"> Values for INPUT neurons </param>
-        /// <param name="ideal"> Values for OUTPUT neurons </param>
+        /// <param name="ideal"> Expected values for OUTPUT neurons </param>
         public virtual void TeachNetwork(double[] input, double[] ideal)
         {
             RunNetwork(input);
             TeachNetwork(ideal);
         }
 
-        private double Sigmoid(double num)
-        {
-            return (1.0 / (1 + Math.Pow(Math.E, -num)));
-        }
-
+        //===========================================================================================================
         private double SigmoidError(double output)
         {
             return (1 - output) * output;
         }
-
         private double DeltaOut(double outIdeal, double outActual)
         {
             return ((outIdeal - outActual) * SigmoidError(outActual));
         }
-
         private double DeltaHidden(double[] weights, Neuron[] delta, double output)
         {
             double actualSum = 0;
@@ -245,5 +247,6 @@ namespace NN
 
             return (SigmoidError(output) * actualSum);
         }
+        #endregion
     }
 }

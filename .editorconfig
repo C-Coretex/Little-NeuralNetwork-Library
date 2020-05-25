@@ -14,3 +14,6 @@ dotnet_diagnostic.CA1303.severity = none
 
 # CA1031: Do not catch general exception types
 dotnet_diagnostic.CA1031.severity = none
+
+# CA1822: Member SigmoidError does not access instance data and can be marked as static (Shared in VisualBasic)
+dotnet_diagnostic.CA1822.severity = none

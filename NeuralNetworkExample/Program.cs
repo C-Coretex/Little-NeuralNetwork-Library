@@ -4,7 +4,6 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using NN;
-using static NN.NeuralNetwork;
 
 namespace NeuralNetworkExample
 {
