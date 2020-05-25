@@ -62,7 +62,7 @@ namespace NN
                     else
                     {
                         biases.Add(i);
-                        uint index = Convert.ToUInt32(neuronsSTR[i][0..^1]) + 1;
+                        uint index = Convert.ToUInt32(neuronsSTR[i].Substring(0, neuronsSTR[i].Length-1)) + 1;
                         Network[i] = new Neuron[index]; //Convert only count of neurons without bias(+)
                         Network[i][index - 1].value = 1;
                         withoutBiasLength[i] = index - 1;
@@ -199,7 +199,7 @@ namespace NN
         {
             //Calculating Delta(OUT) for OUTPUT neurons of the NeuralNetwork 
             for (i = 0; i < ideal.Length; ++i)
-                 deltaNetwork[^1][i].value = DeltaOut(ideal[i], Network[^1][i].value);
+                 deltaNetwork[deltaNetwork.Length - 1][i].value = DeltaOut(ideal[i], Network[Network.Length - 1][i].value);
 
             //Calculating Delta(HIDDEN) for HIDDEN neurons the NeuralNetwork 
             for (i = deltaNetwork.Length - 2; i >= 1; --i) //Start - from the last HIDDEN layer | End - to the firs HIDDEN layer
