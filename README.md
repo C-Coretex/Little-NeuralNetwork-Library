@@ -15,11 +15,11 @@ A library that is made for community. `Program.cs` is an example of how to use t
 
 
 ## Setting up the library
+**If you are using `.Net Framework` you must uncheck `Prefer 32-bit` in project preferences. [Uncheck #1](https://www.neovolve.com/2015/07/31/disable-prefer-32-bit/) or [Uncheck #2](https://www.codeofclimber.ru/2015/make-sure-prefer-32-bit-option-is-turned-off-for-net-4-5-executables/)**
 
 Add the DLL to your project ([how to add dll in VS](https://www.c-sharpcorner.com/UploadFile/1e050f/creating-and-using-dll-class-library-in-C-Sharp/)) and type this:
 ```C#
 using NN;
-using static NN.NeuralNetwork;
 ```
 ---
 
