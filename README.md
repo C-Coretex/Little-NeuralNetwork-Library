@@ -2,7 +2,7 @@
 
 ![Training example](https://github.com/C-Coretex/Little-Neural-Network-Library/blob/master/NeuralNetworkExample/TrainingAndTest/TrainingPhoto.png)
 
-A library that is made for community. `Program.cs` is an example of how to use the library, `NeuralNetwork.cs` is the solution for the library and you can find the .dll in the folder `"DLL is HERE"`. There you can find 2 folders with dll files for `.Net Core` and `.Net Framework`.
+A library that is made for community. `NeuralNetworkExample` and `NeuralNetworkExample2` are examples of how to use the library, `NeuralNetwork` is the project of the library and you can find the .dll in the folder `"DLL is HERE"`. There you can find 2 folders with dll files for `.Net Core` and `.Net Framework`.
 
 ## Table of contents
 * [Setting up the library](#setting-up-the-library)
@@ -98,7 +98,8 @@ network.SaveNetwork(@"C:\s\Neural.aaa");
 ---
 
 ### Example of each teach iteration
-Creating a new Neural Network (or you can load it if you already have one):
+
+- Creating a new Neural Network (or you can load it if you already have one):
 ```C#
 string NeuronsAndLayers = "7 8+ 6 5 3";
 NeuralNetwork network = new NeuralNetwork(NeuronsAndLayers, -1, 1)
@@ -107,24 +108,46 @@ NeuralNetwork network = new NeuralNetwork(NeuronsAndLayers, -1, 1)
     LearningRate = 0.7
 };
 ```
-Declaring input data:
+
+- Declaring input data:
 ```C#
 double[] inputData = new double[] { 1, 0, 1, 1, 0, 1, 1 };
 ```
-Declaring output data:
+
+- Declaring output data:
 ```C#
 double[] outputData = new double[] { 1, 0, 1 };
 ```
-Neural network teaching:
+
+- Neural network teaching:
 ```C#
 Neuron[] outputNeurons = network.RunNetwork(inputData);
 network.TeachNetwork(outputData);
 ```
-Alternative teaching (same way but shorter):
+
+- Alternative teaching (so you don't have to `Run` the Network manually before Teaching):
 ```C#
 network.TeachNetwork(inputData, outputData);
 ```
-Do it in a loop for greater efficiency. For more information check the example `Program.cs`.
+
+- Neural network running:
+```C#
+Neuron[] outputNeurons = network.RunNetwork(inputData);
+```
+
+- Counting the error of the outpt
+```C#
+Neuron[] outputNeurons = network.RunNetwork(inputData);
+
+//Counting an error of current unit
+end = 0;
+for (uint neuronIndex = 0; neuronIndex < outputNeurons.Length; ++neuronIndex)
+         end += Math.Pow(outputData[neuronIndex] - outputNeurons[neuronIndex].value, 2);
+error = end / outputData.Length; //((i1[expected]-a1[output])*(i1-a1)+...+(in-an)*(in-an))/n
+errorSum += error;
+```
+
+Do it in a loop for greater efficiency. For more information check the example in `Program.cs`.
 
 ---
 
