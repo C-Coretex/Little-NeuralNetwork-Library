@@ -11,35 +11,37 @@ namespace NN
     [Serializable]
     public class NeuralNetwork //output  =  sum (weights * inputs) + bias 
     {
-        [Serializable]
-        public struct Neuron
-        {
-            public double value;
-            public double[] weights;
-        }
-
         /// <summary>
         /// The public struct(Neuron[][]) network. To access to the certain neuron type: network[i][j]
         /// </summary>
         public Neuron[][] Network { get; set; }
-        double moment = 0;
+        private double _moment = 0;
+        private double _learningRate = 1;
         public double Moment
         {
-            get
-            {
-                return moment;
-            }
+            get { return _moment; }
             set
             {
                 if (value < 0 || value > 1)
                 {
                     throw new ArgumentException("Moment must be from 0 to 1");
                 }
-                moment = value;
+                _moment = value;
             }
         }
-        public double LearningRate { get; set; } = 1;
-        public int LayersCount => Network.Length;
+        public double LearningRate
+        {
+            get{ return _learningRate; }
+            set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentException("Moment must be greater than 0");
+                }
+                _learningRate = value;
+            }
+        }
+        private int LayersCount => Network.Length;
 
 
         private Neuron[][] deltaNetwork;
@@ -235,7 +237,7 @@ namespace NN
                     for (a = 0; a < Network[i][j].weights.Length; ++a) // Every weight from neuron[i][j]
                     {
                         Grad = Network[i][j].value * deltaNetwork[i + 1][a].value; //Calculating gradient(gradient descent) for the weight
-                        delta = LearningRate*Grad + Moment*previousWeights[i][j]; //Calculating delta of the weight
+                        delta = _learningRate*Grad + _moment*previousWeights[i][j]; //Calculating delta of the weight
                         Network[i][j].weights[a] += delta; //Change the weight of synapse (ActualWeight + DeltaOfThisWeight)
                         previousWeights[i][j] = delta;
                     }
