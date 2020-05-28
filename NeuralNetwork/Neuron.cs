@@ -7,5 +7,6 @@ namespace NN
     {
         public double value;
         public double[] weights;
+        // TODO: add error
     }
 }
