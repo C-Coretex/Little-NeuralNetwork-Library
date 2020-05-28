@@ -10,9 +10,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeuralNetworkExample", "NeuralNetworkExample\NeuralNetworkExample.csproj", "{772B7312-F432-4378-B7BD-726219761D1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeuralNetworkExample_FishersIris", "NeuralNetworkExample\NeuralNetworkExample_FishersIris.csproj", "{772B7312-F432-4378-B7BD-726219761D1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeuralNetworkExample2", "NeuralNetworkExample2\NeuralNetworkExample2.csproj", "{B3CA65D2-FE1C-4494-8C24-AFFB1408E6E2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeuralNetworkExample_ImageRecognition", "NeuralNetworkExample2\NeuralNetworkExample_ImageRecognition.csproj", "{B3CA65D2-FE1C-4494-8C24-AFFB1408E6E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
