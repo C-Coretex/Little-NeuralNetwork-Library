@@ -109,7 +109,7 @@ DocProject/Help/html
 publish/
 
 # Publish Web Output
-*.Publish.xml
+#*.Publish.xml
 
 # Windows Azure Build Output
 csx

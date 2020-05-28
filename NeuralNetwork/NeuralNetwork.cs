@@ -11,6 +11,13 @@ namespace NN
     [Serializable]
     public class NeuralNetwork //output  =  sum (weights * inputs) + bias 
     {
+        [Serializable]
+        public struct Neuron
+        {
+            public double value;
+            public double[] weights;
+        }
+
         /// <summary>
         /// The public struct(Neuron[][]) network. To access to the certain neuron type: network[i][j]
         /// </summary>
@@ -29,10 +36,9 @@ namespace NN
         private int i;
         private int k;
         private int a;
-        Random rand = new Random();
-        double output;
-        double Grad;
-        double delta;
+        private double output;
+        private double Grad;
+        private double delta;
 
         #region Network Initialization/Load/Save
         /// <summary>
@@ -42,7 +48,9 @@ namespace NN
         /// <param name="randMin">Minimal random weight of synapse.</param>
         /// <param name="randMax">Maximal random weight of synapse.</param>
         public NeuralNetwork(string NeuronsAndLayers, double randMin, double randMax)
-        { 
+        {
+            Random rand = new Random();
+
             string[] neuronsSTR = NeuronsAndLayers?.Split(' ');
             Network = new Neuron[neuronsSTR.Length][];
             withoutBiasLength = new uint[neuronsSTR.Length];
@@ -199,15 +207,15 @@ namespace NN
         {
             //Calculating Delta(OUT) for OUTPUT neurons of the NeuralNetwork 
             for (i = 0; i < ideal.Length; ++i)
-                 deltaNetwork[deltaNetwork.Length - 1][i].value = DeltaOut(ideal[i], Network[Network.Length - 1][i].value);
+                 deltaNetwork[LayersCount - 1][i].value = DeltaOut(ideal[i], Network[LayersCount - 1][i].value);
 
             //Calculating Delta(HIDDEN) for HIDDEN neurons the NeuralNetwork 
-            for (i = deltaNetwork.Length - 2; i >= 1; --i) //Start - from the last HIDDEN layer | End - to the firs HIDDEN layer
+            for (i = LayersCount - 2; i >= 1; --i) //Start - from the last HIDDEN layer | End - to the firs HIDDEN layer
                 for (j = 0; j < Network[i].Length; ++j)
                     deltaNetwork[i][j].value = DeltaHidden(Network[i][j].weights, deltaNetwork[i + 1], Network[i][j].value);
 
             //Calculating delta of all the weights to change them
-            for (i = deltaNetwork.Length - 2; i >= 0; --i) //        Start - from the last HIDDEN layer | End - to the firs layer (INPUT)
+            for (i = LayersCount - 2; i >= 0; --i) //        Start - from the last HIDDEN layer | End - to the firs layer (INPUT)
                 for (j = 0; j < Network[i].Length; ++j) //          Every neuron in layer[i]
                     for (a = 0; a < Network[i][j].weights.Length; ++a) // Every weight from neuron[i][j]
                     {

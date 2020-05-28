@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using NN;
+using static NN.NeuralNetwork;
 
 namespace NeuralNetworkExample
 {
@@ -137,19 +138,22 @@ namespace NeuralNetworkExample
 
             double errorSum;
             uint iteration = 0;
+            uint i;
+            uint j;
             double end;
             double error;
+            Neuron[] endValue;
             do
             {
                 errorSum = 0;
-                for (uint i = 0; i < trainingData.Length; ++i) //Run through all TRAIN units
+                for (i = 0; i < trainingData.Length; ++i) //Run through all TRAIN units
                 {
                     //Running the network with current INPUT values of this unit
-                    Neuron[] endValue = network.RunNetwork(trainingData[i].IN);
+                    endValue = network.RunNetwork(trainingData[i].IN);
 
                     //Counting an error of current unit
                     end = 0;
-                    for (uint j = 0; j < endValue.Length; ++j)
+                    for (j = 0; j < endValue.Length; ++j)
                         end += Math.Pow(trainingData[i].OUT[j] - endValue[j].value, 2);
                     error = end / trainingData.Length; //((i-a1)*(i1-a1)+...+(in-an)*(in-an))/n
                     errorSum += error;
