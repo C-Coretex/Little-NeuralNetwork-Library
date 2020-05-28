@@ -22,7 +22,22 @@ namespace NN
         /// The public struct(Neuron[][]) network. To access to the certain neuron type: network[i][j]
         /// </summary>
         public Neuron[][] Network { get; set; }
-        public double Moment { get; set; } = 0;
+        double moment = 0;
+        public double Moment
+        {
+            get
+            {
+                return moment;
+            }
+            set
+            {
+                if (value < 0 || value > 1)
+                {
+                    throw new ArgumentException("Moment must be from 0 to 1");
+                }
+                moment = value;
+            }
+        }
         public double LearningRate { get; set; } = 1;
         public int LayersCount => Network.Length;
 

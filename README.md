@@ -2,7 +2,7 @@
 
 ![Training example](https://github.com/C-Coretex/Little-Neural-Network-Library/blob/master/NeuralNetworkExample/TrainingAndTest/TrainingPhoto.png)
 
-A library that is made for community. `Program.cs` is an example of how to use the library, `NeuralNetwork.cs` is the solution for the library and you can find the .dll in the folder `"DLL is HERE"`. There you can find 2 folders with dll files for `.Net Core` and `.Net Framework`.
+A library that is made for community. `NeuralNetworkExample` and `NeuralNetworkExample2` are examples of how to use the library, `NeuralNetwork` is the project of the library and you can find the .dll in the folder `"DLL is HERE"`. There you can find 2 folders with dll files for `.Net Core` and `.Net Framework`.
 
 ## Table of contents
 * [Setting up the library](#setting-up-the-library)
