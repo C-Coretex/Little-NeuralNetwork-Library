@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="NeuralNetwork">
+      <HintPath>..\DLL is HERE\netcoreapp3.1\NeuralNetwork.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
