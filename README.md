@@ -4,6 +4,8 @@
 
 A library that is made for community. `NeuralNetworkExample_FishersIris` and `NeuralNetworkExample_ImageRecognition` are examples of how to use the library, `NeuralNetwork` is the project of the library and you can find the .dll in the folder `"DLL is HERE"`. There you can find 2 folders with dll files for `.Net Core` and `.Net Framework`.
 
+**Great thanks to [diademoff](https://github.com/diademoff) for the help with this project.**
+
 ## Table of contents
 
 * [Optimizations that has been done](#optimizations-that-has-been-done)
