@@ -187,7 +187,7 @@ network.TeachNetwork(trainingData[i].OUT);
   errorSum += error;
   ```
   
-Do it in a loop for greater efficiency. For more information check the example in `Program.cs`.
+Do it in a loop for greater efficiency. For more information check the examples.
 
 ---
 
