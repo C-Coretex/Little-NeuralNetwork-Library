@@ -5,6 +5,7 @@
 A library that is made for community. `NeuralNetworkExample_FishersIris` and `NeuralNetworkExample_ImageRecognition` are examples of how to use the library, `NeuralNetwork` is the project of the library and you can find the .dll in the folder `"DLL is HERE"`. There you can find 2 folders with dll files for `.Net Core` and `.Net Framework`.
 
 ## Table of contents
+* [Optimizations that has been done](#optimizations-that-has-been-done)
 * [Setting up the library](#setting-up-the-library)
 * [NeuralNetwork creation](#neuralnetwork-creation)
 * [NeuralNetwork usage](#neuralnetwork-usage)
@@ -13,6 +14,17 @@ A library that is made for community. `NeuralNetworkExample_FishersIris` and `Ne
 * [Notes](#notes)
 ---
 
+## Optimizations that has been done
+- `Structs` are more preferable than `classes` and `bjects`
+
+- All the variables are introduced in the body of the class, so `garbage collector` will execute less often
+
+- A `reference` is used for passing structs in the arguments, therefore the program does not copy the struct every time the function is called.
+
+- `For` loop is more preferable than `foreach` loop
+
+- Sometimes `serial code` is more preferable than functions
+---
 
 ## Setting up the library
 **If you are using `.Net Framework` you must uncheck `Prefer 32-bit` in project preferences. [Uncheck #1](https://www.neovolve.com/2015/07/31/disable-prefer-32-bit/) or [Uncheck #2](https://www.codeofclimber.ru/2015/make-sure-prefer-32-bit-option-is-turned-off-for-net-4-5-executables/)**
@@ -150,7 +162,6 @@ errorSum += error;
 Do it in a loop for greater efficiency. For more information check the example in `Program.cs`.
 
 ---
-
 
 ## Contributing
 #### You can freely use the library if you want.
