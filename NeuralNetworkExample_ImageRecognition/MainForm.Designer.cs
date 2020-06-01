@@ -103,6 +103,7 @@
             this.pnl_graphic.Name = "pnl_graphic";
             this.pnl_graphic.Size = new System.Drawing.Size(895, 335);
             this.pnl_graphic.TabIndex = 5;
+            this.pnl_graphic.Paint += new System.Windows.Forms.PaintEventHandler(this.pnl_graphic_Paint);
             // 
             // lbl_graphic
             // 

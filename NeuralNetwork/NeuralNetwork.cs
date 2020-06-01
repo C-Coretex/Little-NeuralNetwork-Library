@@ -181,11 +181,11 @@ namespace NN
 
         #region NeuralNetwork Run
         /// <summary>
-        /// Runs the network and returns Output neurons with the struct Neuron[].
+        /// Runs the network and returns reference to Output neurons with the struct Neuron[].
         /// </summary>
         /// <param name="inputValues">This is array that contains input set.</param>
-        /// <returns>Neuron[]</returns>
-        public virtual Neuron[] RunNetwork(double[] inputValues)
+        /// <returns>Neuron[] reference</returns>
+        public virtual ref Neuron[] RunNetwork(double[] inputValues)
         {
             //INPUT neurons assignment
             for (j = 0; j < inputValues.Length; ++j)
@@ -205,7 +205,7 @@ namespace NN
                 }
             }
 
-            return Network[Network.GetLength(0) - 1];
+            return ref Network[Network.GetLength(0) - 1];
         }
 
         //===========================================================================================================
@@ -229,7 +229,7 @@ namespace NN
             //Calculating Delta(HIDDEN) for HIDDEN neurons the NeuralNetwork 
             for (i = LayersCount - 2; i >= 1; --i) //Start - from the last HIDDEN layer | End - to the firs HIDDEN layer
                 for (j = 0; j < Network[i].Length; ++j)
-                    deltaNetwork[i][j].value = DeltaHidden(Network[i][j].weights, deltaNetwork[i + 1], Network[i][j].value);
+                    deltaNetwork[i][j].value = DeltaHidden(Network[i][j].weights, ref deltaNetwork[i + 1], Network[i][j].value);
 
             //Calculating delta of all the weights to change them
             for (i = LayersCount - 2; i >= 0; --i) //        Start - from the last HIDDEN layer | End - to the firs layer (INPUT)
@@ -263,7 +263,7 @@ namespace NN
         {
             return ((outIdeal - outActual) * SigmoidError(outActual));
         }
-        private double DeltaHidden(double[] weights, Neuron[] delta, double output)
+        private double DeltaHidden(double[] weights, ref Neuron[] delta, double output)
         {
             double actualSum = 0;
 

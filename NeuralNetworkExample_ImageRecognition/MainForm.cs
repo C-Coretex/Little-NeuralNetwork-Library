@@ -44,7 +44,7 @@ namespace NeuralNetworkExample2
 
             new Thread(() =>
             {
-                for (int i = 0; i < 50000; i++)
+                for (int i = 0; i < 100000; i++)
                 {
                     int inputNumOfNeuralNetwork = rnd.Next(0, 10);
 
@@ -64,7 +64,7 @@ namespace NeuralNetworkExample2
 
                     try
                     {
-                        if (i % 5 == 0) // show info every 5 iterations
+                        if (i % 50 == 0) // show info every 5 iterations
                         {
                             double error = GetError(iterationResult.OutputNeurons);
                             graphicDrawer.DrawPoint((float)(error));
@@ -78,7 +78,7 @@ namespace NeuralNetworkExample2
                             }));
                         }
 
-                        if (i % 100 == 0) // show picture every 100 iterations
+                        if (i % 250 == 0) // show picture every 100 iterations
                         {
                             this.Invoke(new MethodInvoker(() =>
                             {
@@ -200,6 +200,11 @@ namespace NeuralNetworkExample2
         void btn_clear_Click(object sender, EventArgs e)
         {
             numberDrawer.Clear(pnl_draw.BackColor);
+        }
+
+        private void pnl_graphic_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
