@@ -179,7 +179,6 @@ network.TeachNetwork(trainingData[i].OUT);
   
   ```C#
   Neuron[] outputNeurons = network.RunNetwork(inputData);
-  ```
 
 //Counting an error of current unit
 end = 0;
@@ -187,8 +186,8 @@ for (uint neuronIndex = 0; neuronIndex < outputNeurons.Length; ++neuronIndex)
          end += Math.Pow(outputData[neuronIndex] - outputNeurons[neuronIndex].value, 2);
 error = end / outputData.Length; //((i1[expected]-a1[output])*(i1-a1)+...+(in-an)*(in-an))/n
 errorSum += error;
-
 ```
+  
 Do it in a loop for greater efficiency. For more information check the example in `Program.cs`.
 
 ---
