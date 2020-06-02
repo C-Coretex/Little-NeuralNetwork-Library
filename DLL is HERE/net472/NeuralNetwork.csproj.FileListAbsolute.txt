@@ -1,8 +1,0 @@
-C:\Users\valer\OneDrive\Desktop\Programming\Little-Neural-Network-Library\NeuralNetwork\obj\Debug\net472\NeuralNetwork.AssemblyInfoInputs.cache
-C:\Users\valer\OneDrive\Desktop\Programming\Little-Neural-Network-Library\NeuralNetwork\obj\Debug\net472\NeuralNetwork.AssemblyInfo.cs
-C:\Users\valer\OneDrive\Desktop\Programming\Little-Neural-Network-Library\NeuralNetwork\obj\Debug\net472\NeuralNetwork.csproj.CoreCompileInputs.cache
-C:\Users\valer\OneDrive\Desktop\Programming\Little-Neural-Network-Library\NeuralNetwork\Build\net472\NeuralNetwork.dll
-C:\Users\valer\OneDrive\Desktop\Programming\Little-Neural-Network-Library\NeuralNetwork\Build\net472\NeuralNetwork.pdb
-C:\Users\valer\OneDrive\Desktop\Programming\Little-Neural-Network-Library\NeuralNetwork\obj\Debug\net472\NeuralNetwork.dll
-C:\Users\valer\OneDrive\Desktop\Programming\Little-Neural-Network-Library\NeuralNetwork\obj\Debug\net472\NeuralNetwork.pdb
-C:\Users\valer\OneDrive\Desktop\Programming\Little-Neural-Network-Library\NeuralNetwork\obj\Debug\net472\NeuralNetwork.csprojAssemblyReference.cache

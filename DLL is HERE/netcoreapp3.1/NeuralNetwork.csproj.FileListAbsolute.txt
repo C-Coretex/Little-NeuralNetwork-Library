@@ -1,9 +1,0 @@
-C:\Users\valer\OneDrive\Desktop\Programming\Little-Neural-Network-Library\NeuralNetwork\Build\netcoreapp3.1\NeuralNetwork.deps.json
-C:\Users\valer\OneDrive\Desktop\Programming\Little-Neural-Network-Library\NeuralNetwork\Build\netcoreapp3.1\NeuralNetwork.dll
-C:\Users\valer\OneDrive\Desktop\Programming\Little-Neural-Network-Library\NeuralNetwork\Build\netcoreapp3.1\NeuralNetwork.pdb
-C:\Users\valer\OneDrive\Desktop\Programming\Little-Neural-Network-Library\NeuralNetwork\obj\Debug\netcoreapp3.1\NeuralNetwork.AssemblyInfoInputs.cache
-C:\Users\valer\OneDrive\Desktop\Programming\Little-Neural-Network-Library\NeuralNetwork\obj\Debug\netcoreapp3.1\NeuralNetwork.AssemblyInfo.cs
-C:\Users\valer\OneDrive\Desktop\Programming\Little-Neural-Network-Library\NeuralNetwork\obj\Debug\netcoreapp3.1\NeuralNetwork.csproj.CoreCompileInputs.cache
-C:\Users\valer\OneDrive\Desktop\Programming\Little-Neural-Network-Library\NeuralNetwork\obj\Debug\netcoreapp3.1\NeuralNetwork.dll
-C:\Users\valer\OneDrive\Desktop\Programming\Little-Neural-Network-Library\NeuralNetwork\obj\Debug\netcoreapp3.1\NeuralNetwork.pdb
-C:\Users\valer\OneDrive\Desktop\Programming\Little-Neural-Network-Library\NeuralNetwork\obj\Debug\netcoreapp3.1\NeuralNetwork.csprojAssemblyReference.cache
