@@ -1,4 +1,4 @@
-# Real Neural Network
+# Real Neural Network Library
 
 ![Training example](https://github.com/C-Coretex/Little-NeuralNetwork-Library/blob/master/NeuralNetworkExample_FishersIris/TrainingAndTest/TrainingPhoto.png)
 
