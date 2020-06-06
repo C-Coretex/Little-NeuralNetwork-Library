@@ -2,7 +2,7 @@
 
 ![Training example](https://github.com/C-Coretex/Little-NeuralNetwork-Library/blob/master/NeuralNetworkExample_FishersIris/TrainingAndTest/TrainingPhoto.png)
 
-A library that is made for community. `NeuralNetworkExample_FishersIris` and `NeuralNetworkExample_ImageRecognition` are examples of how to use the library, `NeuralNetwork` is the project of the library and you can find the .dll in the folder `"DLL is HERE"`. There you can find 2 folders with dll files for `.Net Core` and `.Net Framework`.
+A library that is made for community. `NeuralNetworkExample_FishersIris` and [`NeuralNetworkExample_ImageRecognition`](/NeuralNetworkExample_ImageRecognition) are examples of how to use the library, `NeuralNetwork` is the project of the library and you can find the .dll in the folder `"DLL is HERE"`. There you can find 2 folders with dll files for `.Net Core` and `.Net Framework`.
 
 **Great thanks to [diademoff](https://github.com/diademoff) for the help with this project and for creating one of the examples of the usage of the Neural Network (`NeuralNetworkExample_ImageRecognition`).**
 
@@ -188,12 +188,13 @@ network.TeachNetwork(trainingData[i].OUT);
   error = end / outputData.Length; //((i1[expected]-a1[output])*(i1-a1)+...+(in-an)*(in-an))/n
   errorSum += error;
   ```
-  
+
 Do it in a loop for greater efficiency. For more information check the examples.
 
 ---
 
 ## Contributing
+
 #### You can freely use the library if you want.
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
