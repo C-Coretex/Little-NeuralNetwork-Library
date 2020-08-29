@@ -10,13 +10,13 @@ A library that is made for community. [`NeuralNetworkExample_FishersIris`](/Neur
 
 ## Table of contents
 
-* [Optimizations that has been done](#optimizations-that-has-been-done)
-* [Setting up the library](#setting-up-the-library)
-* [NeuralNetwork creation](#neuralnetwork-creation)
-* [NeuralNetwork usage](#neuralnetwork-usage)
-* [NeuralNetwork teaching example](#example-of-each-teach-iteration)
-* [Contributing](#contributing)
-* [Notes](#notes)
+* ### [Optimizations that has been done](#optimizations-that-has-been-done)
+* ### [Setting up the library](#setting-up-the-library)
+* ### [NeuralNetwork creation](#neuralnetwork-creation)
+* ### [NeuralNetwork usage](#neuralnetwork-usage)
+* ### [NeuralNetwork teaching example](#example-of-each-teach-iteration)
+* ### [Contributing](#contributing)
+* ### [Notes](#notes)
 
 ---
 
